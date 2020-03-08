@@ -61,10 +61,11 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
+    <div class="flex-center position-ref full-height" style="background-image: {{ asset('/images/homewallpaper.png') }}">
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
@@ -81,7 +82,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    Elearning
                 </div>
 
                 <div class="links">
