@@ -10,9 +10,7 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
         <!-- Styles -->
-        @section('css')
-            <link rel="stylesheet" href="{{ asset('css/welcome.css') }}">
-        @endsection
+        <link rel="stylesheet" href="{{ asset('css/welcome.css') }}">
     </head>
     <body>
     <div class="flex-center position-ref full-height" style="background-image: {{ asset('/images/homewallpaper.png') }}">
