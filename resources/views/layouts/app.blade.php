@@ -51,7 +51,7 @@
                             @endif
                         @else
                             <li class="nav-item">
-                                <a class="nav-link" href="">Lessons</a>
+                                <a class="nav-link" href="">Categories</a>
                             </li>
 
                             <li class="nav-item dropdown">
