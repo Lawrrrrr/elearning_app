@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            @if (auth()->user()->isAdmin())
+            @if (Auth::user()->isAdmin())
                 <div class="col-md-6">
                     <h4>Add a Category</h4>
                     <div class="mt-md-3">

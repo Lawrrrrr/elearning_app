@@ -34,11 +34,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    // Verify if the user_type is admin
+    
     public function isAdmin()
     {
-        if(!empty(auth()->user()))
-            return auth()->user()->user_type == "admin";
+        if(!empty($this));
+            return $this->user_type == 'admin';
     }
 }

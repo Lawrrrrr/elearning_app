@@ -21,13 +21,12 @@ class CategoryController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     * @param  \App\User $user
      * @return \Illuminate\Http\Response
      */
-    public function create(User $user)
+    public function create()
     {
-        //
-        if($user->isAdmin())
+        
+        if(auth()->user()->isAdmin())
             return view('categories.create');
         else
             return redirect()->route('home');
@@ -35,13 +34,12 @@ class CategoryController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     * @param  \App\User $user
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(User $user, Request $request)
+    public function store(Request $request)
     {
-        if($user->isAdmin()) {
+        if(auth()->user()->isAdmin()) {
             $request->validate([
                 "title" => "required|min:2",
                 "description" =>"required|min:10"
