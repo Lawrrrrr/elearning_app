@@ -35,4 +35,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    // Verify if the user_type is admin
+    public function isAdmin()
+    {
+        if(!empty(auth()->user()))
+            return auth()->user()->user_type == "admin";
+    }
 }

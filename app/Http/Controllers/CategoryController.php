@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -20,13 +21,13 @@ class CategoryController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
+     * @param  \App\User $user
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(User $user)
     {
         //
-        if($this->isAdmin())
+        if($user->isAdmin())
             return view('categories.create');
         else
             return redirect()->route('home');
@@ -34,13 +35,13 @@ class CategoryController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
+     * @param  \App\User $user
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(User $user, Request $request)
     {
-        if($this->isAdmin()) {
+        if($user->isAdmin()) {
             $request->validate([
                 "title" => "required|min:2",
                 "description" =>"required|min:10"
@@ -100,14 +101,5 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         //
-    }
-
-    // Verify if the user_type is admin
-    private function isAdmin()
-    {
-        if(auth()->user()->user_type == "admin")
-            return true;
-        else
-            return false;
     }
 }

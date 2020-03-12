@@ -20,6 +20,7 @@ class CreateCategoriesTable extends Migration
             $table->string('description');
             $table->boolean('is_complete')->default(0);
 
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
