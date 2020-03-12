@@ -14,9 +14,11 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Category $category)
     {
-        //
+        $categories = $category->isCategoryOwner("!=")->get();
+
+        return view('categories.index', compact('categories'));
     }
 
     /**
@@ -53,7 +55,7 @@ class CategoryController extends Controller
             ]); 
         }
 
-        return redirect()->route('home');
+        return redirect()->route('categories.index');
     }
 
     /**
