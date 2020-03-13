@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +21,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = auth()->user()->unOwnedCategories()->get();
-
+ 
         return view('categories.index', compact('categories'));
     }
 
@@ -55,7 +59,7 @@ class CategoryController extends Controller
             ]); 
         }
 
-        return redirect()->route('categories.index');
+        return redirect()->route('home');
     }
 
     /**
