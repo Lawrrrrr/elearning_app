@@ -46,7 +46,7 @@ class User extends Authenticatable
             return $this->user_type == 'admin';
     }
 
-    public function unOwnedCategory()
+    public function unOwnedCategories()
     {
         return Category::where('user_id', "!=", $this->id);
     }

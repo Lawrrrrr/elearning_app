@@ -16,7 +16,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = auth()->user()->unOwnedCategory()->get();
+        $categories = auth()->user()->unOwnedCategories()->get();
 
         return view('categories.index', compact('categories'));
     }
