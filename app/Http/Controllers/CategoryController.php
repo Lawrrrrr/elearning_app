@@ -14,9 +14,9 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Category $category)
+    public function index()
     {
-        $categories = $category->isCategoryOwner("!=")->get();
+        $categories = auth()->user()->unOwnedCategory()->get();
 
         return view('categories.index', compact('categories'));
     }

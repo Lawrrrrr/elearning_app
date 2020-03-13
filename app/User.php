@@ -34,10 +34,20 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function categories()
+    {
+        return $this->hasMany('App\Category');
+    }
     
     public function isAdmin()
     {
         if(!empty($this));
             return $this->user_type == 'admin';
+    }
+
+    public function unOwnedCategory()
+    {
+        return Category::where('user_id', "!=", $this->id);
     }
 }
