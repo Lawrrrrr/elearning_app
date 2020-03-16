@@ -107,7 +107,7 @@ class CategoryController extends Controller
             "title" => "required|min:2",
             "description" =>"required|min:10"
         ]);
-        // dd($request);
+
         $category->update([
             "title" => $request->title,
             "description" => $request->description,
@@ -131,7 +131,7 @@ class CategoryController extends Controller
 
     public function ownerCategoriesList()
     {
-        $categories = Category::where('user_id', auth()->user()->id)->get();
+        $categories = auth()->user()->categories()->get();
         
         return view('categories.admin', compact('categories'));
     }
