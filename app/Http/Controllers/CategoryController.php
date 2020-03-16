@@ -59,7 +59,7 @@ class CategoryController extends Controller
             ]); 
         }
 
-        return redirect()->route('home');
+        return redirect()->route('categories.admin');
     }
 
     /**
@@ -79,9 +79,17 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($id)
     {
-        //
+        $categoryOwner = auth()->user()->id;
+        $category = Category::find($id);
+        if(!empty($category)){
+            if($categoryOwner == $category->user_id)
+                return view('categories.edit', compact('category'));
+            else
+                return redirect()->route('home');
+        }
+        return redirect()->route('home');
     }
 
     /**
@@ -91,9 +99,21 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update($id, Request $request)
     {
-        //
+        $category = Category::find($id);
+
+        $request->validate([
+            "title" => "required|min:2",
+            "description" =>"required|min:10"
+        ]);
+
+        $category->update([
+            "title" => $request->title,
+            "description" => $request->description,
+        ]);
+        
+        return redirect()->route('categories.admin');
     }
 
     /**
@@ -102,8 +122,17 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        //
+        $category = Category::find($id)->delete();
+
+        return redirect()->route('categories.admin');
+    }
+
+    public function ownerCategoriesList()
+    {
+        $categories = auth()->user()->categories()->get();
+        
+        return view('categories.admin', compact('categories'));
     }
 }
