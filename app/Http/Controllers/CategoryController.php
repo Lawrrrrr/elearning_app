@@ -20,13 +20,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-<<<<<<< Updated upstream
         $categories = auth()->user()->unOwnedCategories()->get();
  
-=======
-        $categories = Category::where('user_id', '!=', auth()->user()->id)->get();
-
->>>>>>> Stashed changes
         return view('categories.index', compact('categories'));
     }
 
@@ -36,12 +31,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-<<<<<<< Updated upstream
         
         if(auth()->user()->isAdmin())
-=======
-        if($this->isAdmin())
->>>>>>> Stashed changes
             return view('categories.create');
         else
             return redirect()->route('home');
@@ -144,13 +135,4 @@ class CategoryController extends Controller
         
         return view('categories.admin', compact('categories'));
     }
-<<<<<<< Updated upstream
-=======
-
-    // Verify if the user_type is admin
-    private function isAdmin()
-    {
-        return auth()->user()->user_type == "admin";
-    }
->>>>>>> Stashed changes
 }
