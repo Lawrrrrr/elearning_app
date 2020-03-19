@@ -111,6 +111,7 @@ class QuestionController extends Controller
         ]);
 
         $question = Question::find($question_id);
+        $question->update(['title' => $request->title]);
         $words = $question->words()->get();
         $this->resetIsCorrect($words);
         $index = 1; 
@@ -153,10 +154,7 @@ class QuestionController extends Controller
 
     public function resetIsCorrect($words)
     {
-        foreach ($words as $word) {
-            $word->update([
-                "is_correct" => 0
-            ]);
-        }
+        foreach ($words as $word) 
+            $word->update(["is_correct" => 0]);
     }
 }

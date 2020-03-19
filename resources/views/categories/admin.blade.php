@@ -2,12 +2,12 @@
 
 @section('content')
     <div class="container">
-        <div class="page-header mb-md-4 text-center">
-            <h2>My Categories</h2>
-            <a href="{{ route('categories.create') }}" class="btn btn-primary mt-md-3 mb-md-2">Add Category</a>
-        </div>
-        <div class="row">
-            <table class="table text-center">
+        <div class="card text-center">
+            <div class="card-header">
+                <h2>My Categories</h2>
+                <a href="{{ route('categories.create') }}" class="btn btn-primary mt-md-3 mb-md-2">Add Category</a>
+            </div>
+            <table class="table table-striped text-center">
                 <thead>
                     <tr>
                         <th>Title</th>
@@ -28,7 +28,7 @@
                                 <form action="{{ route('categories.destroy', ['id' => $category->id]) }}" method="post">
                                     @method('DELETE')
                                     @csrf
-                                    <a href="#" class="btn btn-primary ml-md-2">Add Word</a>
+                                    <a href="{{ route('categories.questions.index', ['id' => $category->id]) }}" class="btn btn-primary ml-md-2">Add Word</a>
                                     <a href="{{ route('categories.edit', ['id' => $category->id]) }}" class="btn btn-warning ml-md-2">Edit</a>
                                     <button type="submit" class="btn btn-danger ml-md-2">Delete</button>
                                 </form>
