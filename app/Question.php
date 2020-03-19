@@ -19,7 +19,7 @@ class Question extends Model
         return $this->belongsTo('App\Category');
     }
 
-    public function answer()
+    public function correctAnswer()
     {
         return $this->words()->where('is_correct', 1);
     }

@@ -20,7 +20,7 @@
                     @foreach ($questions as $question)
                         <tr>
                             <td>{{ $question->title }}</td>
-                            <td>{{ $question->answer()->get()[0]->option }}</td>
+                            <td>{{ $question->correctAnswer()->get()[0]->option }}</td>
                             <td>
                                 <form action="{{ route('categories.questions.destroy', ['category_id' => $category->id, 'question_id' => $question->id]) }}" method="post">
                                     @method('DELETE')

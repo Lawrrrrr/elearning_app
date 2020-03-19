@@ -18,9 +18,4 @@ class Category extends Model
     {
         return $this->hasMany('App\Question');
     }
-
-    public function ownedQuestions()
-    {
-        return Question::where('category_id', $this->id);
-    }
 }

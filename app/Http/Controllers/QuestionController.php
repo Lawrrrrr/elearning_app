@@ -20,9 +20,8 @@ class QuestionController extends Controller
      */
     public function index($category_id)
     {
-        $category = Category::find($category_id);
-        if(!empty($category))
-            $questions = $category->questions()->get();
+        $category = Category::findOrFail($category_id);
+        $questions = $category->questions()->get();
 
         return view('questions.index', compact('category', 'questions'));
     }

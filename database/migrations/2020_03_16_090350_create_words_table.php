@@ -31,6 +31,8 @@ class CreateWordsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('words');
+        Schema::dropIfExists('words', function (Blueprint $table) {
+            $table->dropForeign(['question_id']);
+        });
     }
 }
