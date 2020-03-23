@@ -21,8 +21,12 @@
                                 <p>
                                     {{ $category->description }}
                                 </p>
-                                <div class="button-group text-right">
-                                    <a href="#" class="btn btn-primary pl-md-4 pr-md-4">Begin</a>
+                                <div class="text-right">
+                                    @if (empty($category->checkIfTakenCategory($category->id, auth()->user()->id)->get()[0]->id))
+                                        <a href="{{ route('categories.quizzes.index', ['category_id' => $category->id]) }}" class="btn btn-primary pl-md-4 pr-md-4">Answer Category</a>
+                                    @else
+                                        <a href="{{ route('categories.results', ['category_id' => $category->id]) }}" class="btn btn-success pl-md-4 pr-md-4">Display Results</a>
+                                    @endif
                                 </div>
                             </div>
                         </div>

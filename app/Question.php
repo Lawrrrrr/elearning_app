@@ -19,6 +19,11 @@ class Question extends Model
         return $this->belongsTo('App\Category');
     }
 
+    public function quiz()
+    {
+        return $this->hasOne('App\Quiz');
+    }
+
     public function correctAnswer()
     {
         return $this->words()->where('is_correct', 1);
