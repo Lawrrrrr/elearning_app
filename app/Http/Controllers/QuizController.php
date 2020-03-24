@@ -124,7 +124,7 @@ class QuizController extends Controller
         ++$page;
 
         if(count($questions) < $page)
-            return redirect()->route('categories.index');
+            return redirect()->route('categories.results', $category_id);
         else
             return redirect('categories/'. $category_id . '/quizzes/' . $category_id . '?page=' . $page);
     }

@@ -24,9 +24,14 @@ class Question extends Model
         return $this->hasOne('App\Quiz');
     }
 
-    public function correctAnswer()
+    public function correctAnswers()
     {
         return $this->words()->where('is_correct', 1);
+    }
+
+    public function userAnswers($lesson_id)
+    {
+        return $this->quiz()->where('lesson_id', $lesson_id);
     }
 }
 

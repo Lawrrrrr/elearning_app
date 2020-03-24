@@ -8,18 +8,23 @@ class Lesson extends Model
 {
     protected $guarded = ['id'];
 
-    public function users()
+    public function user()
     {
-        return $this->belongsToMany('App\User')->withTimestamps();
+        return $this->belongsTo('App\User');
     }
 
-    public function categories() 
+    public function category() 
     {
-        return $this->belongsToMany('App\Category')->withTimestamps();
+        return $this->belongsTo('App\Category');
     }
 
     public function quizzes()
     {
         return $this->hasMany('App\Quiz');
+    }
+
+    public function correctAnswers()
+    {
+        return $this->quizzes()->where('is_correct', 1);
     }
 }
