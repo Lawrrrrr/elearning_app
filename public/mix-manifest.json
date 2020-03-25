@@ -3,5 +3,6 @@
     "/css/app.css": "/css/app.css",
     "/css/welcome.css": "/css/welcome.css",
     "/css/users-index.css": "/css/users-index.css",
+    "/css/pagination.css": "/css/pagination.css",
     "/css/home.css": "/css/home.css"
 }

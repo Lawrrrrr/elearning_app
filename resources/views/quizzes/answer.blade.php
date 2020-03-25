@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('css')
+    <link rel="stylesheet" href="{{ asset('css/pagination.css') }}">
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -34,6 +38,7 @@
                     </div>
                 </div>
             @endforeach
+            {{ $questions->links() }}
         </div>
     </div>
 </div>

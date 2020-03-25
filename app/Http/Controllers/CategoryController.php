@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class CategoryController extends Controller
 {
@@ -20,8 +23,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = auth()->user()->unOwnedCategories()->get();
- 
+        $categories = auth()->user()->unOwnedCategories()->paginate(6);
+        
         return view('categories.index', compact('categories'));
     }
 
