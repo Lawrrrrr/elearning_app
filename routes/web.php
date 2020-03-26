@@ -21,6 +21,8 @@ Route::resources([
     'categories' => 'CategoryController',
     'categories.quizzes' => 'QuizController',
     'categories.questions' => 'QuestionController',
+    'questions.words' => 'WordController',
+    'users' => 'UserController'
 ]);
 
 Route::get('/categories/admin/list', 'CategoryController@ownerCategoriesList')->name('categories.admin');
@@ -31,3 +33,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::post('/categories/{category_id}/lessons/{lesson_id}/question/{question_id}/page/{page}', 'QuizController@setAnswer')->name('categories.quizzes.answer');
 
+Route::patch('/home/users/{user_id}/upload-avatar', 'UserController@uploadAvatar')->name('home.users.upload-avatar');

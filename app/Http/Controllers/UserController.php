@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -61,9 +63,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($user_id)
     {
-        //
+        return view('users.edit', compact('user'));
     }
 
     /**
@@ -73,9 +75,32 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $user_id)
     {
-        //
+        $request->validate([
+            'firstname' => 'required|string|max:255',
+            'lastname' => 'required|string|max:255',
+            'email' => 'required|string|email'
+        ]);
+
+        if(!empty($request->new_password))
+        {
+            $request->validate([
+                "new_password" => "required|min:8|max:255|confirmed"
+            ]);
+
+            auth()->user()->update([
+                'password' => Hash::make($request->new_password)
+            ]);
+        }
+
+        auth()->user()->update([
+            'firstname' => $request->firstname,
+            'lastname' => $request->lastname,
+            'email' => $request->email
+        ]);
+
+        return redirect()->route('home');
     }
 
     /**
@@ -87,5 +112,27 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function uploadAvatar(Request $request)
+    {
+        $oldAvatar = auth()->user()->avatar;
+        $request->validate([
+            'avatar' => 'required|image|mimes:jpeg,jpg,png,gif|max:2048'
+        ]);
+
+        if($oldAvatar != 'nofaces.png')
+        {
+            File::delete(public_path('images') . '/' . $oldAvatar);
+        }
+
+        $fileName = time() . '.' . $request->avatar->getClientOriginalExtension();
+        $request->avatar->move(public_path('images'), $fileName);
+
+        auth()->user()->update([
+            'avatar' => $fileName
+        ]);
+        
+        return redirect()->back();
     }
 }
