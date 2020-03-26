@@ -18,4 +18,15 @@ class Category extends Model
     {
         return $this->hasMany('App\Question');
     }
+
+    public function lessons()
+    {
+        return $this->hasMany('App\Lesson');
+    }
+
+    public function checkIfTakenCategory($category_id, $user_id)
+    {
+        return Lesson::where('category_id', $category_id)
+                     ->where('user_id', $user_id);
+    }
 }

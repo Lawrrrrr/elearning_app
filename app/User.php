@@ -39,6 +39,11 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Category');
     }
+
+    public function lessons()
+    {
+        return $this->hasMany('App\Lesson');
+    }
     
     public function isAdmin()
     {

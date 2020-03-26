@@ -5,7 +5,7 @@
         <div class="card">
             <div class="card-header">
                 <h2>Category #{{ $category->id . ": " . $category->title }}</h2>
-                <a href="{{ route('categories.questions.create', ['category' => $category]) }}" class="btn btn-primary mt-md-3 mb-md-2 mr-md-4">Add Question</a>
+                <a href="{{ route('categories.questions.create', ['category' => $category]) }}" class="btn btn-primary mt-md-3 mb-md-2 mr-md-4">Create Question</a>
                 <a href="{{ route('categories.admin') }}" class="btn btn-secondary mt-md-3 mb-md-2">Return</a>
             </div>
             <table class="table table-striped">
@@ -20,7 +20,7 @@
                     @foreach ($questions as $question)
                         <tr>
                             <td>{{ $question->title }}</td>
-                            <td>{{ $question->correctAnswer()->get()[0]->option }}</td>
+                            <td>{{ $question->correctAnswers()->get()[0]->option }}</td>
                             <td>
                                 <form action="{{ route('categories.questions.destroy', ['category_id' => $category->id, 'question_id' => $question->id]) }}" method="post">
                                     @method('DELETE')

@@ -13,4 +13,9 @@ class Word extends Model
     {
         return $this->belongsTo('App\Question');
     }
+
+    public function isCorrect($answer)
+    {
+        return $this->where('option', $answer);
+    }
 }

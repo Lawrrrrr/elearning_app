@@ -19,8 +19,15 @@ Auth::routes();
 
 Route::resources([
     'categories' => 'CategoryController',
+    'categories.quizzes' => 'QuizController',
     'categories.questions' => 'QuestionController',
-    'questions.words' => 'WordController'
 ]);
+
 Route::get('/categories/admin/list', 'CategoryController@ownerCategoriesList')->name('categories.admin');
+
+Route::get('/categories/{category_id}/results', 'QuizController@displayResults')->name('categories.results');
+
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::post('/categories/{category_id}/lessons/{lesson_id}/question/{question_id}/page/{page}', 'QuizController@setAnswer')->name('categories.quizzes.answer');
+

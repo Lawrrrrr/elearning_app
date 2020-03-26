@@ -5,7 +5,7 @@
         <div class="card text-center">
             <div class="card-header">
                 <h2>My Categories</h2>
-                <a href="{{ route('categories.create') }}" class="btn btn-primary mt-md-3 mb-md-2">Add Category</a>
+                <a href="{{ route('categories.create') }}" class="btn btn-primary mt-md-3 mb-md-2">Create Category</a>
             </div>
             <table class="table table-striped text-center">
                 <thead>
