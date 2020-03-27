@@ -1,7 +1,12 @@
 <?php
 
-return [
+    $url = parse_url(getenv('DATABASE_URL'));
+    $host = $url['host'] ?? null;
+    $username = $url['user'];
+    $password = $url['pass'];
+    $database = substr($url['path'], 1);
 
+return [
     /*
     |--------------------------------------------------------------------------
     | Default Database Connection Name
@@ -13,7 +18,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    'default' => env('DB_CONNECTION', 'pgsql_production'),
 
     /*
     |--------------------------------------------------------------------------
