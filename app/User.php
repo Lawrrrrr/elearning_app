@@ -45,6 +45,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Lesson');
     }
     
+    public function activities()
+    {
+        return $this->hasMany('App\Activity');
+    }
+    
     public function isAdmin()
     {
         if(!empty($this));
@@ -72,4 +77,10 @@ class User extends Authenticatable
     {
         return $this->followedUsers()->where('followed_id', $followed_id)->exists();
     }
+
+    public function activity()
+    {
+        return $this->morphOne('App\Activity', 'action');
+    }
 }
+
