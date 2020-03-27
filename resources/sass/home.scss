@@ -1,4 +1,12 @@
-$avatarSizeHeight: 90px;
+$iconAvatarSizeHeight: 90px;
+$iconAvatarSizeWidth: 90px;
+$avatarPictureHeight: 210px;
+
 .icon-avatar {
-    height: $avatarSizeHeight;
+    height: $iconAvatarSizeHeight;
+    width: $iconAvatarSizeWidth;
 }
+
+.avatar-picture {
+    height: $avatarPictureHeight;
+}   

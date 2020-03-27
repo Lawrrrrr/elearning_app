@@ -52,9 +52,14 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($user_id)
     {
-        //
+        $user = User::findOrFail($user_id);
+
+        if(auth()->user()->id == $user->id)
+            return redirect()->route('home');
+        else
+            return view('users.profile', compact('user'));
     }
 
     /**
@@ -133,6 +138,22 @@ class UserController extends Controller
             'avatar' => $fileName
         ]);
         
+        return redirect()->back();
+    }
+
+    public function follow($followed_id)
+    {
+        $follower = auth()->user();
+        $follower->followedUsers()->attach($followed_id);
+
+        return redirect()->back();
+    }
+
+    public function unfollow($followed_id)
+    {
+        $follower = auth()->user();
+        $follower->followedUsers()->detach($followed_id);
+
         return redirect()->back();
     }
 }
