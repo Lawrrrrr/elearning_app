@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Activity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
@@ -56,8 +57,8 @@ class UserController extends Controller
     {
         $user = User::findOrFail($user_id);
 
-        if(auth()->user()->id == $user->id)
-            return redirect()->route('home');
+        if($user->id == auth()->user()->id)
+            return view('home', compact('user'));
         else
             return view('users.profile', compact('user'));
     }
@@ -145,6 +146,7 @@ class UserController extends Controller
     {
         $follower = auth()->user();
         $follower->followedUsers()->attach($followed_id);
+        $this->createActivity($followed_id, 'follow');
 
         return redirect()->back();
     }
@@ -153,7 +155,17 @@ class UserController extends Controller
     {
         $follower = auth()->user();
         $follower->followedUsers()->detach($followed_id);
+        $this->createActivity($followed_id, 'unfollow');
 
         return redirect()->back();
+    }
+
+    public function createActivity($followed_id, $action)
+    {
+        Activity::create([
+            'user_id' => auth()->user()->id,
+            'action_id' => $followed_id,
+            'action_type' => $action
+        ]);
     }
 }

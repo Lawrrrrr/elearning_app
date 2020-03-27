@@ -27,27 +27,22 @@
             <div class="card">
                 <div class="card-header"><h3>Activities</h3></div>
                 <div class="card-body">
-                    <div class="row m-md-3">
-                        <img src="{{ asset('images/' . auth()->user()->avatar) }}" alt="avatar-pic" class="icon-avatar float-left mr-md-4">
-                        <p>
-                            You learned 20 of 20 words in <a href="http://">Nature Words</a><br />
-                            <span class="text-muted">2 days ago</span>
-                        </p>
-                    </div>
-                    <div class="row m-md-3">
-                        <img src="{{ asset('images/' . auth()->user()->avatar) }}" alt="avatar-pic" class="icon-avatar float-left mr-md-4">
-                        <p>
-                            You learned 10 of 20 words in <a href="http://">Techno Words</a><br />
-                            <span class="text-muted">3 days ago</span>
-                        </p>
-                    </div>
-                    <div class="row m-md-3">
-                        <img src="{{ asset('images/' . auth()->user()->avatar) }}" alt="avatar-pic" class="icon-avatar float-left mr-md-4">
-                        <p>
-                            You followed <a href="http://">James</a><br />
-                            <span class="text-muted">12 days ago</span>
-                        </p>
-                    </div>
+                    @if (count(auth()->user()->activities) == 0)
+                        <div class="text-center">
+                            <h3 class="text-danger">You have no activities yet!</h3>
+                        </div>
+                    @else
+                        @foreach (auth()->user()->activities->sortByDesc('updated_at') as $activity)
+                            <div class="row m-md-3">
+                                <img src="{{ asset('images/' . auth()->user()->avatar) }}" alt="avatar-pic" class="icon-avatar float-left mr-md-4">
+                                <p>
+                                    You {{ $activity->action_type }}ed  <a href="{{ route('users.show', ['user_id' => $activity->action_id]) }}">
+                                        {{ $activity->followedUser()->firstname . " " . $activity->followedUser()->lastname }}</a><br />
+                                    <span class="text-muted">{{ $activity->updated_at->diffForHumans() }}</span>
+                                </p>
+                            </div>
+                        @endforeach
+                    @endif
                 </div>
             </div>
         </div>

@@ -16,9 +16,11 @@
                     <h3>{{ $user->firstname . " " . $user->lastname }}</h3>
                     <h5 class="text-secondary">User Type: {{ ucfirst($user->user_type) }}</h5>
                     @if (auth()->user()->isFollowing($user->id))
-                        <a href="{{ route('users.unfollow', ['followed_id' => $user->id]) }}" class="btn btn-danger text-right ml-auto pl-md-4 pr-md-4">Unfollow</a>
+                        <a href="{{ route('users.unfollow', ['followed_id' => $user->id]) }}" class="btn btn-danger text-right ml-auto pl-md-4 pr-md-4" 
+                        style="visibility: {{ $user->id == auth()->user()->id ? 'hidden' : ''}}">Unfollow</a>
                     @else
-                        <a href="{{ route('users.follow', ['followed_id' => $user->id]) }}" class="btn btn-primary text-right ml-auto pl-md-4 pr-md-4">Follow</a>
+                        <a href="{{ route('users.follow', ['followed_id' => $user->id]) }}" class="btn btn-primary text-right ml-auto pl-md-4 pr-md-4" 
+                        style="visibility: {{ $user->id == auth()->user()->id ? 'hidden' : ''}}">Follow</a>
                     @endif
                 </div>
                 <div class="card-body">
@@ -31,27 +33,30 @@
             <div class="card">
                 <div class="card-header"><h3>Activities</h3></div>
                 <div class="card-body">
-                    <div class="row m-md-3">
-                        <img src="{{ asset('images/' . $user->avatar) }}" alt="avatar-pic" class="icon-avatar float-left mr-md-4">
-                        <p>
-                            {{ $user->firstname }} learned 20 of 20 words in <a href="http://">Nature Words</a><br />
-                            <span class="text-muted">2 days ago</span>
-                        </p>
-                    </div>
-                    <div class="row m-md-3">
-                        <img src="{{ asset('images/' . $user->avatar) }}" alt="avatar-pic" class="icon-avatar float-left mr-md-4">
-                        <p>
-                            {{ $user->firstname }} learned 10 of 20 words in <a href="http://">Techno Words</a><br />
-                            <span class="text-muted">3 days ago</span>
-                        </p>
-                    </div>
-                    <div class="row m-md-3">
-                        <img src="{{ asset('images/' . $user->avatar) }}" alt="avatar-pic" class="icon-avatar float-left mr-md-4">
-                        <p>
-                            {{ $user->firstname }} followed <a href="http://">James</a><br />
-                            <span class="text-muted">12 days ago</span>
-                        </p>
-                    </div>
+                    @if (auth()->user()->isFollowing($user->id))
+                        @if (count($user->activities) == 0)
+                            <div class="text-center">
+                                <h3 class="text-danger">This user has no activities yet!</h3>
+                            </div>
+                        @else
+                            @foreach ($user->activities->sortByDesc('updated_at') as $activity)
+                                <div class="row m-md-3">
+                                    <img src="{{ asset('images/' . $user->avatar) }}" alt="avatar-pic" class="icon-avatar float-left mr-md-4">
+                                    <p>
+                                        {{ $user->firstname . " " . $user->lastname }} 
+                                        {{ $activity->action_type }}ed  <a href="{{ route('users.show', ['user_id' => $activity->action_id]) }}">
+                                        {{ $activity->followedUser()->firstname . " " . $activity->followedUser()->lastname }}</a><br />
+                                        <span class="text-muted">{{ $activity->updated_at->diffForHumans() }}</span>
+                                    </p>
+                                </div>
+                            @endforeach
+                        @endif
+                    @else
+                        <div class="text-center">
+                            <h3 class="text-danger">You are not following this user!</h3>
+                        </div>
+                    @endif
+
                 </div>
             </div>
         </div>
