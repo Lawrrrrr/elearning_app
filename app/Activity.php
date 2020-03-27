@@ -13,6 +13,11 @@ class Activity extends Model
         return $this->belongsTo('App\User');
     }
 
+    public function lesson()
+    {
+        return $this->belongsTo('App\Lesson');
+    }
+
     public function followedUser()
     {
         return User::findOrFail($this->action_id);

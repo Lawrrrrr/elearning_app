@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Activity;
 use App\Question;
 use App\Lesson;
 use App\Quiz;
@@ -58,8 +59,10 @@ class QuizController extends Controller
     {
         $category = Category::findOrFail($category_id);
         $questions = $category->questions()->paginate(1);
-        if(empty($category->checkIfTakenCategory($category_id, auth()->user()->id)->get()[0]->id))
+        if(empty($category->checkIfTakenCategory($category_id, auth()->user()->id)->get()[0]->id)){
             $lesson = $this->setTakenCategory($category_id); 
+            $this->createActivity($lesson->id, "learn");
+        }
         else
             $lesson = $category->checkIfTakenCategory($category_id, auth()->user()->id)->get()[0]->id;
 
@@ -137,5 +140,14 @@ class QuizController extends Controller
         $questions = $category->questions()->get();
 
         return view('quizzes.result', compact('category','questions', 'lesson'));  
+    }
+
+    public function createActivity($lesson_id, $action)
+    {
+        Activity::create([
+            'user_id' => auth()->user()->id,
+            'action_id' => $lesson_id,
+            'action_type' => $action
+        ]);
     }
 }
