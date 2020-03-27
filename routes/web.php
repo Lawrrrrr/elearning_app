@@ -21,7 +21,6 @@ Route::resources([
     'categories' => 'CategoryController',
     'categories.quizzes' => 'QuizController',
     'categories.questions' => 'QuestionController',
-    'questions.words' => 'WordController',
     'users' => 'UserController'
 ]);
 
