@@ -33,4 +33,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::post('/categories/{category_id}/lessons/{lesson_id}/question/{question_id}/page/{page}', 'QuizController@setAnswer')->name('categories.quizzes.answer');
 
+Route::get('/follow/user/{followed_id}', 'UserController@follow')->name('users.follow');
+
+Route::get('/unfollow/user/{followed_id}', 'UserController@unfollow')->name('users.unfollow');
+
 Route::patch('/home/users/{user_id}/upload-avatar', 'UserController@uploadAvatar')->name('home.users.upload-avatar');

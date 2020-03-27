@@ -1,4 +1,9 @@
 .icon-avatar {
   height: 90px;
+  width: 90px;
+}
+
+.avatar-picture {
+  height: 210px;
 }
 

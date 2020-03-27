@@ -10,7 +10,7 @@
         <div class="col-md-3 text-center">
             <div class="card">
                 <div class="m-md-3">
-                    <img src="{{ asset('images/'. auth()->user()->avatar) }}" alt="avatar-pic" class="card-img-top">
+                    <img src="{{ asset('images/'. auth()->user()->avatar) }}" alt="avatar-pic" class="card-img-top rounded avatar-picture">
                 </div>
                 <div class="card-header">
                     <h3>{{ auth()->user()->firstname . " " . auth()->user()->lastname }}</h3>

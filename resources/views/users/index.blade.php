@@ -13,9 +13,14 @@
                     <div class="card">
                         <div class="card-body align-items-center d-flex">
                             <img src="{{ asset('images/' . $user->avatar) }}" class="icon-avatar img-fluid rounded">
-                            <span class="px-3"><a href="">{{ $user->firstname . ' ' . $user->lastname }}</a></span>
-                            <a href="#" class="btn btn-primary text-right ml-auto" 
-                            style="visibility: {{ $user->id == auth()->user()->id ? 'hidden' : ''}}">Follow</a>             
+                            <span class="px-3"><a href="{{ $user->id == auth()->user()->id ? route('home') : route('users.show', ['user_id'=> $user->id]) }}">{{ $user->firstname . ' ' . $user->lastname }}</a></span>
+                            @if (auth()->user()->isFollowing($user->id))
+                                <a href="{{ route('users.unfollow', ['followed_id' => $user->id]) }}" class="btn btn-danger text-right ml-auto pl-md-4 pr-md-4" 
+                                style="visibility: {{ $user->id == auth()->user()->id ? 'hidden' : ''}}">Unfollow</a>
+                            @else
+                                <a href="{{ route('users.follow', ['followed_id' => $user->id]) }}" class="btn btn-primary text-right ml-auto pl-md-4 pr-md-4" 
+                                style="visibility: {{ $user->id == auth()->user()->id ? 'hidden' : ''}}">Follow</a>
+                            @endif
                         </div>
                     </div>
                 </div>
