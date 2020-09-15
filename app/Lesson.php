@@ -27,4 +27,14 @@ class Lesson extends Model
     {
         return $this->quizzes()->where('is_correct', 1);
     }
+
+    public function activities()
+    {
+        return $this->hasMany('App\Activity');
+    }
+
+    public function activity()
+    {
+        return $this->morphOne('App\Activity', 'action');
+    }
 }

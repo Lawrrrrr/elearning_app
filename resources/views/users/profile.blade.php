@@ -42,12 +42,21 @@
                             @foreach ($user->activities->sortByDesc('updated_at') as $activity)
                                 <div class="row m-md-3">
                                     <img src="{{ asset('images/' . $user->avatar) }}" alt="avatar-pic" class="icon-avatar float-left mr-md-4">
-                                    <p>
-                                        {{ $user->firstname . " " . $user->lastname }} 
-                                        {{ $activity->action_type }}ed  <a href="{{ route('users.show', ['user_id' => $activity->action_id]) }}">
-                                        {{ $activity->followedUser()->firstname . " " . $activity->followedUser()->lastname }}</a><br />
-                                        <span class="text-muted">{{ $activity->updated_at->diffForHumans() }}</span>
-                                    </p>
+                                    @if ($activity->action_type ==  "learn")
+                                        <p>
+                                            {{ $user->firstname . " " . $user->lastname }} {{ $activity->action_type }}ed  
+                                            <a href="#">
+                                            {{ $user->lessonTaken($activity->action_id)->category()->get()[0]->title }}</a><br />
+                                            <span class="text-muted">{{ $activity->updated_at->diffForHumans() }}</span>
+                                        </p>
+                                    @else
+                                        <p>
+                                            {{ $user->firstname . " " . $user->lastname }} 
+                                            {{ $activity->action_type }}ed  <a href="{{ route('users.show', ['user_id' => $activity->action_id]) }}">
+                                            {{ $activity->followedUser()->firstname . " " . $activity->followedUser()->lastname }}</a><br />
+                                            <span class="text-muted">{{ $activity->updated_at->diffForHumans() }}</span>
+                                        </p>
+                                    @endif
                                 </div>
                             @endforeach
                         @endif

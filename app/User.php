@@ -82,5 +82,10 @@ class User extends Authenticatable
     {
         return $this->morphOne('App\Activity', 'action');
     }
+
+    public function lessonTaken($lesson_id)
+    {
+        return Lesson::findOrFail($lesson_id);
+    }
 }
 
